@@ -25,9 +25,15 @@ public class PlayerController {
     }
 
     @ResponseBody
-    @GetMapping(value="/players/{poste}",produces = "application/json")
+    @GetMapping(value="/players/poste/{poste}",produces = "application/json")
     public ArrayList<Player> getPlayersByPost(@PathVariable String poste){
         return dao.findByPost(poste);
+    }
+
+    @ResponseBody
+    @GetMapping(value="/players/{nom}",produces = "application/json")
+    public ArrayList<Player> getPlayersByName(@PathVariable String nom){
+        return dao.findByName(nom);
     }
 
     @ResponseBody
@@ -41,6 +47,13 @@ public class PlayerController {
     @DeleteMapping(value="/players/{name}", consumes = "application/json", produces = "application/json")
     public String deletePlayer(@PathVariable String name){
         if (dao.deletePlayerByName(name))  return "Bien joué, "+name+" est mort !";
+        return "Mince,"+name+" n'existe pas !";
+    }
+
+    @ResponseBody
+    @PutMapping(value="/players/{name}", consumes = "application/json", produces = "application/json")
+    public String updatePlayer(@PathVariable String name,@RequestBody Player player){
+        if (dao.updatePlayerByName(name,player))  return "Bien joué, "+name+" est updaté !";
         return "Mince,"+name+" n'existe pas !";
     }
 
