@@ -4,18 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
+
 @Component
 @Scope("prototype")
 public class Player {
+
     private String nom;
+
     private String prenom;
+
     private String poste;
+
     private int fg3pts;
 
     @Autowired
     public Player(String nom, String prenom, String poste, int fg3pts){
         this.nom=nom;
-        this.prenom=prenom;
+        this.prenom =prenom;
         this.poste=poste;
         this.fg3pts=fg3pts;
     }

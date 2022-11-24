@@ -1,6 +1,8 @@
 package player;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,23 +40,28 @@ public class PlayerController {
 
     @ResponseBody
     @PostMapping(value="/players", consumes = "application/json", produces = "application/json")
-    public String addPlayer(@RequestBody Player player){
-        dao.addPlayer(player);
-        return "Bien joué, le joueur a été ajouté !";
+    public ResponseEntity<?> addPlayer(@RequestBody Player player){
+        if (player.getNom() != null && player.getPrenom() != null && player.getPoste() != null ) {
+            dao.addPlayer(player);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @ResponseBody
     @DeleteMapping(value="/players/{name}", consumes = "application/json", produces = "application/json")
-    public String deletePlayer(@PathVariable String name){
-        if (dao.deletePlayerByName(name))  return "Bien joué, "+name+" est mort !";
-        return "Mince,"+name+" n'existe pas !";
+    public ResponseEntity<?> deletePlayer(@PathVariable String name){
+        if (dao.deletePlayerByName(name))  return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @ResponseBody
     @PutMapping(value="/players/{name}", consumes = "application/json", produces = "application/json")
-    public String updatePlayer(@PathVariable String name,@RequestBody Player player){
-        if (dao.updatePlayerByName(name,player))  return "Bien joué, "+name+" est updaté !";
-        return "Mince,"+name+" n'existe pas !";
+    public ResponseEntity<?> updatePlayer(@PathVariable String name,@RequestBody Player player){
+        if (player.getNom() != null && player.getPrenom() != null && player.getPoste() != null ) {
+            if (dao.updatePlayerByName(name,player)) return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
