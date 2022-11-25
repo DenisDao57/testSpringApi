@@ -49,17 +49,17 @@ public class PlayerController {
     }
 
     @ResponseBody
-    @DeleteMapping(value="/players/{name}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> deletePlayer(@PathVariable String name){
-        if (dao.deletePlayerByName(name))  return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping(value="/players/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> deletePlayer(@PathVariable String id){
+        if (dao.deletePlayerByID(id))  return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @ResponseBody
-    @PutMapping(value="/players/{name}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> updatePlayer(@PathVariable String name,@RequestBody Player player){
+    @PutMapping(value="/players/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> updatePlayer(@PathVariable String id,@RequestBody Player player){
         if (player.getNom() != null && player.getPrenom() != null && player.getPoste() != null ) {
-            if (dao.updatePlayerByName(name,player)) return new ResponseEntity<>(HttpStatus.CREATED);
+            if (dao.updatePlayerByID(id,player)) return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

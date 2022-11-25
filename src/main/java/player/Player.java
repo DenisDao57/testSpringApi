@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 @Scope("prototype")
 public class Player {
 
+    private String id;
+
     private String nom;
 
     private String prenom;
@@ -19,11 +21,21 @@ public class Player {
     private int fg3pts;
 
     @Autowired
-    public Player(String nom, String prenom, String poste, int fg3pts){
+    public Player(String id,String nom, String prenom, String poste, int fg3pts){
+        this.id=id;
         this.nom=nom;
         this.prenom =prenom;
         this.poste=poste;
         this.fg3pts=fg3pts;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNom() {

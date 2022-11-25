@@ -21,11 +21,11 @@ public class NbaData {
     }
 
     public void init(){
-        Player p1 = ctx.getBean(Player.class,"Stephen","Curry","Meneur",51);
-        Player p2 = ctx.getBean(Player.class,"Klay","Thompson","Arriere",37);
-        Player p3 = ctx.getBean(Player.class,"Russel","Westbrook","Meneur",31);
-        Player p4 = ctx.getBean(Player.class,"Michael","Jordan","Arriere",33);
-        Player p5 = ctx.getBean(Player.class,"Rudy","Gobert","Pivot",12);
+        Player p1 = ctx.getBean(Player.class,"1","Stephen","Curry","Meneur",51);
+        Player p2 = ctx.getBean(Player.class,"2","Klay","Thompson","Arriere",37);
+        Player p3 = ctx.getBean(Player.class,"3","Russel","Westbrook","Meneur",31);
+        Player p4 = ctx.getBean(Player.class,"4","Michael","Jordan","Arriere",33);
+        Player p5 = ctx.getBean(Player.class,"5","Rudy","Gobert","Pivot",12);
 
         this.players.add(p1);this.players.add(p2);this.players.add(p3);this.players.add(p4);
         this.players.add(p5);

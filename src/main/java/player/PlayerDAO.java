@@ -59,13 +59,14 @@ public class PlayerDAO implements IPlayerDAO {
 
     @Override
     public void addPlayer(Player player) {
+        player.setId(getMaxID());
         this.data.players.add(player);
     }
 
     @Override
-    public Boolean deletePlayerByName(String name) {
+    public Boolean deletePlayerByID(String id) {
         for (Player player : this.data.players){
-            if (player.getNom().equals(name)){
+            if (player.getId().equals(id)){
                 this.data.players.remove(player);
                 return true;
             }
@@ -75,15 +76,27 @@ public class PlayerDAO implements IPlayerDAO {
     }
 
     @Override
-    public Boolean updatePlayerByName(String name,Player play) {
+    public Boolean updatePlayerByID(String id, Player play) {
         for (int i=0; i<this.data.players.size();i++){
             Player player = this.data.players.get(i);
-            if (player.getNom().equals(name)){
+            if (player.getId().equals(id)){
+                play.setId(player.getId());
                 this.data.players.set(i,play);
                 return true;
             }
         }
 
         return false;
+    }
+
+    public String getMaxID(){
+        int id = 0;
+        for (int i = 0;i<this.data.players.size();i++){
+            int player_id = Integer.parseInt(this.data.players.get(i).getId());
+            if (player_id > id ){
+                id = player_id + 1;
+            }
+        }
+        return Integer.toString(id);
     }
 }
